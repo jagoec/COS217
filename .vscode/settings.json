@@ -1,0 +1,16 @@
+{
+   // COS 217 workspace settings -- approximates the course's .emacs config
+   "C_Cpp.default.cStandard": "c90",
+   "C_Cpp.default.cppStandard": "c++98",
+   "editor.rulers": [72],
+   "editor.renderWhitespace": "all",
+   "editor.insertSpaces": true,
+   "editor.tabSize": 3,
+   "editor.detectIndentation": false,
+   "files.trimTrailingWhitespace": true,
+   "files.insertFinalNewline": true,
+   "files.exclude": {
+      "**/.git": true
+   },
+   "C_Cpp.errorSquiggles": "enabledIfIncludesResolve"
+}

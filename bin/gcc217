@@ -1,0 +1,29 @@
+#!/bin/bash
+# gcc217 -- local approximation of the COS 217 "gcc217" command from
+# Princeton's armlab Linux cluster.
+#
+# The real gcc217 is a bash script that calls gcc with course-mandated
+# options. This approximation calls Apple's clang (which gcc on macOS
+# actually is) with the equivalent options:
+#
+#   -std=c90     ISO C90, the course's dialect of C (the standard that
+#                King's book and the de-comment assignment assume)
+#   -pedantic    reject/warn about GNU extensions that ISO C90 forbids
+#   -Wall        standard warning set (course deducts points for warnings)
+#   -Wextra      extra warning set
+#
+# Usage is identical to gcc, so all of the course's command sequences
+# work unchanged:
+#
+#   gcc217 -E decomment.c -o decomment.i   (preprocess)
+#   gcc217 -S decomment.i -o decomment.s   (compile)
+#   gcc217 -c decomment.s -o decomment.o   (assemble)
+#   gcc217 decomment.o -o decomment         (link)
+#   gcc217 decomment.c -o decomment         (shortcut: all four at once)
+#
+# Set COS217_CC to override the underlying compiler, e.g. a real gcc
+# installed via Homebrew:  COS217_CC=gcc-14 gcc217 ...
+
+CC="${COS217_CC:-cc}"
+
+exec "$CC" -std=c90 -pedantic -Wall -Wextra "$@"

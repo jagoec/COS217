@@ -1,0 +1,85 @@
+{
+   // Tasks mirroring the course's gcc217 build steps.
+   // Open a .c file, then: Terminal > Run Task... (Cmd+Shift+P, "run task")
+   // "stage" tasks operate on the file currently open in the editor.
+   "version": "2.0.0",
+   "tasks": [
+      {
+         "label": "build (gcc217 shortcut: all four stages)",
+         "type": "shell",
+         "command": "gcc217",
+         "args": [
+            "-g",
+            "${file}",
+            "-o",
+            "${fileDirname}/${fileBasenameNoExtension}"
+         ],
+         "group": {
+            "kind": "build",
+            "isDefault": true
+         },
+         "problemMatcher": "$gcc"
+      },
+      {
+         "label": "stage 1: preprocess (.c -> .i)",
+         "type": "shell",
+         "command": "gcc217",
+         "args": [
+            "-E",
+            "${file}",
+            "-o",
+            "${fileDirname}/${fileBasenameNoExtension}.i"
+         ],
+         "problemMatcher": []
+      },
+      {
+         "label": "stage 2: compile (.i -> .s)",
+         "type": "shell",
+         "command": "gcc217",
+         "args": [
+            "-S",
+            "${fileDirname}/${fileBasenameNoExtension}.i",
+            "-o",
+            "${fileDirname}/${fileBasenameNoExtension}.s"
+         ],
+         "problemMatcher": []
+      },
+      {
+         "label": "stage 3: assemble (.s -> .o)",
+         "type": "shell",
+         "command": "gcc217",
+         "args": [
+            "-c",
+            "${fileDirname}/${fileBasenameNoExtension}.s",
+            "-o",
+            "${fileDirname}/${fileBasenameNoExtension}.o"
+         ],
+         "problemMatcher": []
+      },
+      {
+         "label": "stage 4: link (.o -> executable)",
+         "type": "shell",
+         "command": "gcc217",
+         "args": [
+            "${fileDirname}/${fileBasenameNoExtension}.o",
+            "-o",
+            "${fileDirname}/${fileBasenameNoExtension}"
+         ],
+         "problemMatcher": []
+      },
+      {
+         "label": "run as filter (stdin -> stdout, 2 -> stderr)",
+         "type": "shell",
+         "command": "${fileDirname}/${fileBasenameNoExtension}",
+         "args": [
+            "<",
+            "${fileDirname}/input.txt",
+            ">",
+            "${fileDirname}/output.txt",
+            "2>",
+            "${fileDirname}/errors.txt"
+         ],
+         "problemMatcher": []
+      }
+   ]
+}
